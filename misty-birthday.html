@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Misty! 🎉 Post Box</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: bounce 2s infinite;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .post-box {
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .post {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 25px;
+            color: white;
+            position: relative;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s forwards;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .post:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .post:nth-child(1) { animation-delay: 0.1s; }
+        .post:nth-child(2) { animation-delay: 0.2s; }
+        .post:nth-child(3) { animation-delay: 0.3s; }
+        .post:nth-child(4) { animation-delay: 0.4s; }
+        .post:nth-child(5) { animation-delay: 0.5s; }
+        .post:nth-child(6) { animation-delay: 0.6s; }
+        .post:nth-child(7) { animation-delay: 0.7s; }
+        .post:nth-child(8) { animation-delay: 0.8s; }
+
+        .post-author {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .post-message {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .post-emoji {
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff6b6b;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .posts-grid { grid-template-columns: 1fr; }
+            .post-box { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎂 Happy Birthday Misty! 🎂</h1>
+            <p>Read all the love from your friends! 💖</p>
+        </div>
+
+        <div class="post-box">
+            <h2 style="text-align: center; color: #333; margin-bottom: 30px; font-size: 2rem;">Messages for Misty ✨</h2>
+            
+            <div class="posts-grid">
+                <div class="post" onclick="createHeart(event)">
+                    <div class="post-author">Mohit</div>
+                    <div class="post-message">Happy Birthday dear friend😇
+
+You have always been by my side through thick and thin💫 and I am grateful for your unwavering support and love🥰 You have a heart of gold😍 and I am lucky to call you my friend😋 On this special dayI 😍wish you all the happiness and joy in the world, and I pray that you will always be surrounded by love and positivity🤗Happy Birthday</div>
+                    <div class="post-emoji">🎉✨🎂</div>
+                </div>
+
+                <div class="post" onclick="createHeart(event)">
+                    <div class="post-author">Pragati</div>
+                    <div class="post-message">Mishti dii😋❤️ kya mtlb aap best author ho hmesha hi sundar c bnke rehti ho cutie c ho or aapke mood swings bhai live show jese hai jese kabhi bhi kuch hojata hai na vse.. aap toh bilkul kuch ni bolti bdi sweet c ho😭✨ mtlb agr koi lad bhi rha ho na aap kehti ho " haye ram mera gc ashudh hogya gaaliya se" 🤣✨ mereko yeh chiz acchi lgi😋😋 or aap bdi jldi gussa zrur hojati ho but  maan bhi utni jldi hi jaati ho💅🏻💅🏻 spam krna koi aapse sikhe or jo aapke stickers hote hain pta ni kaha se dhundh ke laati ho dekhke hi dil khush hojata hai😋😋 kya mtlb puri ki puri filmy ho oho🧿😅😅 bda maza sa aajata hai💅🏻💅🏻Aur di sach bolu, aap jab likhti ho na toh lagta hai aap apni hi personality copy paste kar deti ho stories me — thoda drama, thodi sweetness, thoda attitude aur full entertainment 💅📖. Aapke saath rehna matlab free ka daily entertainment milna, kabhi comedy show, kabhi emotional scene, kabhi action 💥.Mishti di = 100% sweet, 100% gussa, 100% drama aur 200% lovable 😂💖. Thodi</div>
+                    <div class="post-emoji">⭐🎁🎊</div>
+                </div>
+
+                <div class="post" onclick="createHeart(event)">
+                    <div class="post-author">Roshni</div>
+                    <div class="post-message">“Happy Birthdayyy 🥳🎂
+Another year older, but still not wiser 🤡✨
+May your life be filled with zero responsibilities, 100% drama, and unlimited cringe moments (just like you 💀).
+Stay weird, stay annoying, and pls never change… because this entertainment is priceless 😂
+Enjoy your day before reality hits tomorrow 😌✌️”</div>
+                    <div class="post-emoji">💐🎂🍰</div>
+                </div>
+
+                <div class="post" onclick="createHeart(event)">
+                    <div class="post-author">Ak</div>
+                    <div class="post-message">Chirkut yeyeyyeyeeyee aj apka brdy hai jiska intjar huma itna time se tha aj koi shyari nahi kyuki aj bss masti bina socha sab kuch bolunga jo man me aayega 
+Waisa ap chirkut ho na or jab dekho muh teda karti ho jaisi ki abhi 80 saal ki budhi ban gayi ho par itni achi kyu ho mai chahakr bhi apsa gussa nhi ho pata na apsa naraj kyuki ap kabhi aisi koi harkat ni karti ladki ap ho par mood swing ap mera jhelti ho😭 mahina me ittu dafa apni tareef kara leta hu aj bhi aisa lag raha hai apka nahi mers brdy hai yeyyeyeye par baat toh sach hai ap or mai alag thori hai or yeh toh pehla surprise hai sabhar karo abhi toh party start Hui hai ap humesha khush raho yaar mujhe bhagwan na bahut precious gift diya hai jo ho aap
+Apka hona mera bahut jaruri hai mera har dukh sukh k part ho ap 
+Ek mai apni feelings express nahi kar pata par ha nibhata poora dil se hi
+
+(Yeyeye typing mistake ignore karna )
+Happy Birthday chirkut u budhi ho rahi ho ek din apka sara dat tut jayega haaye kitna maja aayega😏😏</div>
+                    <div class="post-emoji">🔥🎈🚀</div>
+                </div>
+
+                <div class="post" onclick="createHeart(event)">
+                    <div class="post-author">UTSAV (ACHA BACHA)</div>
+                    <div class="post-message">Happiest birthday to the girl I met very recently 🎉
+
+You’re the most innocent and caring person I’ve met (ik saab kahe ge ki galat hu pr fr muje itna experience hua nai hai to😅).
+
+Happy Birthday, Mehuu 🥰
+Stay happy, stay healthy, and may all your wishes come true ✨🥂
+
+Khub ice cream mile and koi roke na aapko😋😂
+
+</div>
+                    <div class="post-emoji">🌈💫🎉</div>
+                </div>
+
+                <div class="post" onclick="createHeart(event)">
+                    <div class="post-author">Kartikay</div>
+                    <div class="post-message">heyyy mishti 
+you know what tu itni pyaari hai merko isse achi bhn mil hini skti thi like you da best aurrr mai bolra tha tu merko bilkul aone sage bhai ki trh treat krti hn dramebaaz hai thdi si pr cutiee hai puri stay blessed stay happy aur kuch bhi ho merse sb share krio and andd one last thing no matter what mai tere sth hamesha hu tujhe kbhi akela feel nhi hone dunga in any situation aurrrrr tu meri best bhn hai</div>
+                    <div class="post-emoji">🎵🎤🎶</div>
+                </div>
+
+                <div class="post" onclick="createHeart(event)">
+                    <div class="post-author">Nikita</div>
+                    <div class="post-message">Janamdinnnn ki dheerrrrrrr saariiii shubhkamnayeeee meliiiiiii pyaariiiiii siiiii mistriiii diiii koooo 😋🎂🫂
+
+Banda toh waise bhi nahi milega🤭Single hi rehna padega ab hamare jaise😋💔 Mistriiiii diiiii phir bhi thaloo meleko machiiii banaoooo👉🏻👈🏻😔
+sabko itne pyaar se samjhte ho aur sab kuch itna easily handle kar lete ho😋💅 bhale hi woh kitna bhi difficult kyu na ho😮‍💨matlab multitasking queen ho aap👑💅
+Aur haan 😤 ap hamesha meliii side lete ho😌⚔️ jaise personal bodyguard ho mere 🤭🛡️jo mujhe tang kare uski toh bas.....😈💣
+Aur sabse funny baat😭raat kitne baje bhi msg karo toh hamesha online👀matlab aap insaan ho ya 24x7 CCTV camera🧐📸
+Hum sabke upar nazar rakhe hue ho👀chupke se sabki jasoosi karte ho😔 but honestlyyyyyy🥹💗 aap hi ho jo hum sabko ek saath jod ke rakhe hue ho 🫂✨
+I loveeeee uhhhhhhh tooooo theeeee moonnnnn anddddd backkkkkkk 😭💋💗🧿</div>
+                    <div class="post-emoji">🦋💕🌟</div>
+                </div>
+
+                <div class="post" onclick="createHeart(event)">
+                    <div class="post-author">Endu</div>
+                    <div class="post-message">Happy Birthday Mishtiiiiii🎂✨  
+Tumhari presence hi itni pyaari hai ki bina kuch bole bhi sab better lagne lagta hai. I hope aaj ka din tumhe utni hi khushi de jitni tum dusron ko dete ho. May this year bring you soft moments, genuine smiles, and all the little things that make your heart happy. Stay the same sweet, caring, and beautiful soul you are. Tum hamesha aise hi khush raho, smile karte raho, aur jo bhi chaho wo sab tumhe mile. Enjoy your day, you truly deserve all the love today and always. Once again happiessstttt sweeettesstttt bdayyy to youu 😊💛.</div>
+                    <div class="post-emoji">🥇🎊🎉</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts on post click
+        function createHeart(event) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💖';
+            heart.style.left = (event.clientX - 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('hearts').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Auto-generate hearts periodically
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = ['💖', '🎉', '✨', '🎂', '🌟'][Math.floor(Math.random() * 5)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                document.getElementById('hearts').appendChild(heart);
+
+                setTimeout(() => heart.remove(), 7000);
+            }
+        }, 2000);
+
+        // Add confetti effect on load
+        window.addEventListener('load', () => {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createHeart({clientX: Math.random() * window.innerWidth, clientY: 0}), i * 100);
+            }
+        });
+    </script>
+
+
+
+<i>
+<H1>From tang adau and bulbul</H1> </i>
+</body>
+</html>
